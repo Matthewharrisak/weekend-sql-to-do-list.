@@ -2,7 +2,7 @@ const pg = require ('pg');
 
 const Pool = pg.Pool;
 const pool = new Pool({
-    database: 'bookstore', // the name of the database
+    database: 'weekend-to-do-app', // the name of the database
     host: 'localhost', // where the database is located
     port: 5432, // postgres default port
     max: 10,

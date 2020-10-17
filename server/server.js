@@ -1,17 +1,17 @@
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const app = express();
-// const PORT = 5000;
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 5000;
 
-// app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
-// // getting info from bookRouter
-// let bookRouter = require('./routes/bookRouter')
-// app.use('/bookRouter', bookRouter);
+// getting info from bookRouter
+let taskRouter = require('./routes/taskRoutes')
+app.use('/taskRoutes', taskRouter);
 
-// app.use(express.static('server/public'));
+app.use(express.static('server/public'));
 
 
-// app.listen(PORT, () => {
-//     console.log('listening on port', PORT)
-// });
+app.listen(PORT, () => {
+    console.log('listening on port', PORT)
+});
