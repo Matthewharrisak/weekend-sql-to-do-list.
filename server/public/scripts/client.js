@@ -5,7 +5,9 @@ $(document).ready(onReady);
 function onReady() {
     console.log('hello from JQ');
     $('#submitNewTask').on('click' , newTaskSubmission)
+    $('#taskRowBody').on('click' , '.delete' , taskDelete)
     taskHistory();
+    taskComplete();
 }
 
 
@@ -48,8 +50,12 @@ function taskHistory () {
 // appends server data to the DOM
 function tasksOnTheDom(response) {
     for (let index = 0; index < response.length; index++) {
-        // let el = '';
-        // if ()
+        let el = '';
+        if (response[index.taskComplete] === true){
+            el = 'You did it!';
+        } else {
+            el ='<button class ="delete">delete</button>'
+        }
         $('#taskRowBody').append(`
         <tr>
             <td>${response[index].task}</td>
@@ -63,7 +69,18 @@ function tasksOnTheDom(response) {
 
 // PUT regyest to update database with 
 function taskComplete(){
-    
+    let taskID = $(this).closest('th').data('id');
+    console.log('hello from taskComplete' , taskID);
+    $.ajax({
+        method: 'PUT',
+        url:`/taskRoutes/taskFinished/${taskID}`,
+        data: {taskFinished: true} // established that the task was complete and sends that data to the database
+    }).then(function(response){
+        console.log(response);
+        tasksOnTheDom();
+    }).catch(function(error){
+        console.log(error);
+     });
 }
 
   // deletes task from DOM and Database by ID number
