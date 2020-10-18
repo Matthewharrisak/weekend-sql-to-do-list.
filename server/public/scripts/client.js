@@ -6,8 +6,8 @@ function onReady() {
     console.log('hello from JQ');
     $('#submitNewTask').on('click' , newTaskSubmission)
     $('#taskRowBody').on('click' , '.delete' , taskDelete)
-    $('#taskRowBody').on('click' , '.finished' , taskComplete)
-    $('#taskRowBody').on('click' , '.finished' , moveTask)
+    $('#taskRowBody').on('click' , '.finished' , taskComplete, moveTask)
+    // $('#taskRowBody').on('click' , '.finished' , moveTask)
     taskHistory();
 }
 
