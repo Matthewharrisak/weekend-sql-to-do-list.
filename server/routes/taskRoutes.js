@@ -1,4 +1,5 @@
 const express = require('express');
+const { query } = require('../modules/pool');
 const router = express.Router();
 const pool = require('../modules/pool');
 
@@ -36,5 +37,17 @@ router.get('/' , (req, res) => {
     });
 });
 
+
+router.delete('/:id' , (req , res) =>{
+    let taskID = req.params.id; // taskID will use req.params.id to match client ID with database ID
+    let queryText = `DELETE FROM "tasks" WHERE "id" = $1;`;
+    pool.query(queryText, [taskID].then((result) =>{
+        console.log('results from GET DELETE' , result);
+        res.sendStatus(200);   
+    }).catch((error) => {
+        console.log('error in the DELETE' , error);
+        res.sendStatus(500);
+    })
+)})
 
 module.exports = router;

@@ -9,6 +9,8 @@ function onReady() {
 }
 
 
+
+
 // post request that receives input values from DOM and sends to server
 function newTaskSubmission () {
     console.log('whats up from newTaskSubmission');
@@ -23,7 +25,8 @@ function newTaskSubmission () {
          }).then(function(response){
             $('#taskInput').val(''),
             $('#dueDateInput').val(''),
-             taskHistory();
+            $('#taskRowBody').empty(); // empty out the table before new tasks are displayed on the DOM
+             taskHistory(); // taskHistory is whats loading the database entries onto the DOM
          });
     }
 
@@ -41,13 +44,41 @@ function taskHistory () {
           
       });
 }
+
+// appends server data to the DOM
 function tasksOnTheDom(response) {
     for (let index = 0; index < response.length; index++) {
+        // let el = '';
+        // if ()
         $('#taskRowBody').append(`
         <tr>
             <td>${response[index].task}</td>
-            <td>${response[index].dueBy}</td>
+            <td>${response[index].dueBy}
+            <button class="delete">delete</button>
+            </td>
             </tr>
        `);
   }}
 
+
+// PUT regyest to update database with 
+function taskComplete(){
+    
+}
+
+  // deletes task from DOM and Database by ID number
+  function taskDelete () {
+      let taskID = $(this).closest('th').data('id');
+      console.log('hello from taskDelete' , taskID);
+      
+      $.ajax({
+          method: 'DELETE',
+          url:`/taskRoutes/${taskID}`
+      }).then(function(response){
+        console.log(response);
+        taskHistory();
+      }).catch(function(error){
+          console.log(error);
+          
+      });
+  }
