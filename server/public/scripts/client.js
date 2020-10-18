@@ -6,8 +6,8 @@ function onReady() {
     console.log('hello from JQ');
     $('#submitNewTask').on('click' , newTaskSubmission)
     $('#taskRowBody').on('click' , '.delete' , taskDelete)
+    $('#taskRowBody').on('click' , '.finished' , taskComplete)
     taskHistory();
-    taskComplete();
 }
 
 
@@ -48,34 +48,31 @@ function taskHistory () {
 // appends server data to the DOM
 function tasksOnTheDom(response) {
     for (let index = 0; index < response.length; index++) {
-        let el = '';
-        if (response[index.taskComplete] === true){
-            el = 'You did it!';
-        } else {
-            el ='<button class ="delete">delete</button>'
-        }
         $('#taskRowBody').append(`
         <ul>
         <li data-id=${response[index].id}>
             ${response[index].task}
             <button class="delete">delete</button>
+            <button class="finished">Done Yet?</button>
             </li>
             </ul>
        `);
   }}
 
 
-// PUT regyest to update database with 
+// PUT request to update database with 
 function taskComplete(){
     let taskID = $(this).closest('li').data('id');
     console.log('hello from taskComplete' , taskID);
     $.ajax({
         method: 'PUT',
         url:`/taskRoutes/taskFinished/${taskID}`,
-        data: {taskFinished: true} // established that the task was complete and sends that data to the database
+        data:  {
+            taskFinished: true 
+        } // established that the task was complete and sends that data to the database
     }).then(function(response){
         console.log(response);
-        taskHistory()
+        taskHistory();
     }).catch(function(error){
         console.log(error);
      });

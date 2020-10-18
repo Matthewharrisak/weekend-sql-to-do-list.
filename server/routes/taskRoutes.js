@@ -54,8 +54,10 @@ router.put('/taskFinished/:id' , (req , res) => {
     let taskID = req.params.id;
     let taskFinished = req.body.taskFinished;
     console.log("whats up from the put request" , taskID , taskFinished);
-    
-    let queryText = `UPDATE "tasks" SET "taskFinished" = $1 WHERE "id" = $2;`;
+    let queryText = '';
+    if(req.body.taskFinished === true){
+        queryText = `UPDATE "tasks" SET "taskFinished" = $1 WHERE "id" = $2;`;
+    };
     pool.query(queryText, [taskFinished , taskID]).then((result) => {
         console.log(result);
         res.sendStatus(200);
