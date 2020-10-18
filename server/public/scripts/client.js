@@ -16,17 +16,15 @@ function onReady() {
 // post request that receives input values from DOM and sends to server
 function newTaskSubmission () {
     console.log('whats up from newTaskSubmission');
-    let newTaskObject = {
-        task: $('#taskInput').val(),
-        dueBy: $('#dueDateInput').val()
-    }
+    let taskID = {
+        task: $('#taskInput').val()
+       }
         $.ajax({
          type:'POST',
-         url: './taskRoutes',
-         data: newTaskObject
+         url: '/taskRoutes',
+         data: taskID
          }).then(function(response){
             $('#taskInput').val(''),
-            $('#dueDateInput').val(''),
             $('#taskRowBody').empty(); // empty out the table before new tasks are displayed on the DOM
              taskHistory(); // taskHistory is whats loading the database entries onto the DOM
          });
@@ -34,7 +32,7 @@ function newTaskSubmission () {
 
 // get request to get data from database
 function taskHistory () {
-    //$('#taskRowBody').empty(); // emptys out the DOM before the same data is reloaded
+    $('#taskRowBody').empty(); // emptys out the DOM before the same data is reloaded
     $.ajax({
         type: 'GET',
         url: './taskRoutes'
@@ -57,19 +55,19 @@ function tasksOnTheDom(response) {
             el ='<button class ="delete">delete</button>'
         }
         $('#taskRowBody').append(`
-        <tr>
-            <td>${response[index].task}</td>
-            <td>${response[index].dueBy}
+        <ul>
+        <li data-id=${response[index].id}>
+            ${response[index].task}
             <button class="delete">delete</button>
-            </td>
-            </tr>
+            </li>
+            </ul>
        `);
   }}
 
 
 // PUT regyest to update database with 
 function taskComplete(){
-    let taskID = $(this).closest('th').data('id');
+    let taskID = $(this).closest('li').data('id');
     console.log('hello from taskComplete' , taskID);
     $.ajax({
         method: 'PUT',
@@ -77,7 +75,7 @@ function taskComplete(){
         data: {taskFinished: true} // established that the task was complete and sends that data to the database
     }).then(function(response){
         console.log(response);
-        tasksOnTheDom();
+        taskHistory()
     }).catch(function(error){
         console.log(error);
      });
@@ -85,7 +83,7 @@ function taskComplete(){
 
   // deletes task from DOM and Database by ID number
   function taskDelete () {
-      let taskID = $(this).closest('th').data('id');
+      let taskID = $(this).closest('li').data('id');
       console.log('hello from taskDelete' , taskID);
       
       $.ajax({

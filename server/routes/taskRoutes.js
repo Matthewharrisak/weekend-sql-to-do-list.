@@ -9,12 +9,11 @@ const pool = require('../modules/pool');
 router.post('/' , (req, res) => { // sending the stuff
     console.log('req.body from the POST request' , req.body);
     let task = req.body.task;
-    let dueBy = req.body.dueBy;
     
-    let queryText = `INSERT INTO "tasks" ("task" , "dueBy")
-    VALUES ('${task}','${dueBy}');`;
+    let queryText = `INSERT INTO "tasks" ("task")
+    VALUES ($1);`;
 
-    pool.query(queryText).then((result) => {
+    pool.query(queryText, [task]).then((result) => {
     res.sendStatus(200);
     }).catch((error) => {
      console.log(error);
@@ -47,15 +46,16 @@ router.delete('/:id' , (req , res) =>{
     }).catch((error) => {
         console.log('error in the DELETE' , error);
         res.sendStatus(500);
-    })
+    });
 })
 
 
 router.put('/taskFinished/:id' , (req , res) => {
     let taskID = req.params.id;
     let taskFinished = req.body.taskFinished;
-
-    let queryText = `UPDATE "tasks" set "taskComplete" = $1 WHERE "id" = $2;`;
+    console.log("whats up from the put request" , taskID , taskFinished);
+    
+    let queryText = `UPDATE "tasks" SET "taskFinished" = $1 WHERE "id" = $2;`;
     pool.query(queryText, [taskFinished , taskID]).then((result) => {
         console.log(result);
         res.sendStatus(200);
