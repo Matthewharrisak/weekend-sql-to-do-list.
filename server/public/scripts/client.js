@@ -68,7 +68,7 @@ function taskComplete(){
         method: 'PUT',
         url:`/taskRoutes/taskFinished/${taskID}`,
         data:  {
-            taskFinished: true 
+            taskFinished: true
         } // established that the task was complete and sends that data to the database
     }).then(function(response){
         console.log(response);

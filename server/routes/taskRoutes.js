@@ -36,7 +36,7 @@ router.get('/' , (req, res) => {
     });
 });
 
-
+// deletes data by ID from the database
 router.delete('/:id' , (req , res) =>{
     let taskID = req.params.id; // taskID will use req.params.id to match client ID with database ID
     let queryText = `DELETE FROM "tasks" WHERE "id" = $1;`;
@@ -49,15 +49,15 @@ router.delete('/:id' , (req , res) =>{
     });
 })
 
-
+// updates database to change taskFinished to true
 router.put('/taskFinished/:id' , (req , res) => {
     let taskID = req.params.id;
     let taskFinished = req.body.taskFinished;
     console.log("whats up from the put request" , taskID , taskFinished);
     let queryText = '';
-    if(req.body.taskFinished === true){
+    
         queryText = `UPDATE "tasks" SET "taskFinished" = $1 WHERE "id" = $2;`;
-    };
+    
     pool.query(queryText, [taskFinished , taskID]).then((result) => {
         console.log(result);
         res.sendStatus(200);
