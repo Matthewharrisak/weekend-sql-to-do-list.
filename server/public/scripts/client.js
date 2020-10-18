@@ -7,6 +7,7 @@ function onReady() {
     $('#submitNewTask').on('click' , newTaskSubmission)
     $('#taskRowBody').on('click' , '.delete' , taskDelete)
     $('#taskRowBody').on('click' , '.finished' , taskComplete)
+    $('#taskRowBody').on('click' , '.finished' , moveTask)
     taskHistory();
 }
 
@@ -94,3 +95,11 @@ function taskComplete(){
           
       });
   }
+
+function moveTask() {
+    $(this).parent().appendTo('#completed')
+}
+    // console.log('hello from move task!');
+    // $('#completed').empty();
+    // $(this).parent().appendTo('#completed');
+
