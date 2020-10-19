@@ -5,16 +5,17 @@ $(document).ready(onReady);
 function onReady() {
     console.log('hello from JQ');
     $('#submitNewTask').on('click' , newTaskSubmission)
-    $('#taskRowBody').on('click' , '.delete' , taskDelete )
+    $('#taskRowBody').on('click' , '.delete' , taskDelete)
     $('#completed').on('click' , '.delete' , taskDelete)
-    $('#taskRowBody').on('click' , '.finished' , taskComplete, removeTask)
+    $('#taskRowbody').on('click' ,'.finished' , removeTask)
+    $('#taskRowBody').on('click' , '.finished' , taskComplete)
     $('#taskRowBody').on('click', '.finished' , moveTask )
     taskHistory();
 }
 
 
 // post request that receives input values from DOM and sends to server
-function newTaskSubmission () {
+    function newTaskSubmission () {
     let taskID = {
         task: $('#taskInput').val()
        }
@@ -24,13 +25,13 @@ function newTaskSubmission () {
          data: taskID
          }).then(function(response){
             $('#taskInput').val(''),
-            $('#taskRowBody').empty(''); // empty out the table before new tasks are displayed on the DOM
+            $('#taskRowBody').empty(); // empty out the table before new tasks are displayed on the DOM
              taskHistory(); // taskHistory is whats loading the database entries onto the DOM
          });
     }
 
 // get request to get data from database
-function taskHistory () {
+    function taskHistory () {
     $('#taskRowBody').empty(); // emptys out the DOM before the same data is reloaded
     $.ajax({
         type: 'GET',
@@ -40,12 +41,11 @@ function taskHistory () {
             tasksOnTheDom(response);
       }).catch(function(error){
           console.log(error);
-          
-      });
+     });
 }
 
 // appends server data to the DOM
-function tasksOnTheDom(response) {
+    function tasksOnTheDom(response) {
     for (let index = 0; index < response.length; index++) {
         $('#taskRowBody').append(`
         <ul>
@@ -60,7 +60,7 @@ function tasksOnTheDom(response) {
 
 
 // PUT request to update database with 
-function taskComplete(){
+    function taskComplete(){
     let taskID = $(this).closest('li').data('id');
     console.log('hello from taskComplete' , taskID);
     $.ajax({
@@ -75,10 +75,10 @@ function taskComplete(){
     }).catch(function(error){
         console.log(error);
      });
-}
+    }
 
   // deletes task from DOM and Database by ID number
-  function taskDelete () {
+    function taskDelete () {
       let taskID = $(this).closest('li').data('id');
       console.log('hello from taskDelete' , taskID);
       
@@ -93,19 +93,19 @@ function taskComplete(){
           console.log(error);
           
       });
-  }
+    }
 
-  // moves task list item to "you did it!" section
-function moveTask() {
+//     // moves task list item to "you did it!" section
+    function moveTask() {
     
    let completedTask = $(this).parent();
    $('#completed').append(completedTask);
     }
 
-    // targets the "done Yet?" button and moves it from the <UL>
+//     // targets the "done Yet?" button and moves it from the <UL>
     function removeTask(){
         $(this).parent().remove();
-        taskHistory();
+       
     }
 
  
