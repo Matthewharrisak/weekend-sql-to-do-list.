@@ -5,8 +5,9 @@ $(document).ready(onReady);
 function onReady() {
     console.log('hello from JQ');
     $('#submitNewTask').on('click' , newTaskSubmission)
-    $('#taskRowBody').on('click' , '.delete' , taskDelete)
-    $('#taskRowBody').on('click' , '.finished' , taskComplete , removeTask)
+    $('#taskRowBody').on('click' , '.delete' , taskDelete )
+    $('#completed').on('click' , '.delete' , taskDelete)
+    $('#taskRowBody').on('click' , '.finished' , taskComplete, removeTask)
     $('#taskRowBody').on('click', '.finished' , moveTask )
     taskHistory();
 }
@@ -16,7 +17,6 @@ function onReady() {
 
 // post request that receives input values from DOM and sends to server
 function newTaskSubmission () {
-    console.log('whats up from newTaskSubmission');
     let taskID = {
         task: $('#taskInput').val()
        }
@@ -53,11 +53,11 @@ function tasksOnTheDom(response) {
         <ul>
         <li data-id=${response[index].id}>
             ${response[index].task}
-            <button class="delete">delete</button>
+            <button id="delete" class="delete">delete</button>
             <button class="finished">Done Yet?</button>
             </li>
             </ul>
-       `);
+          `);
   }}
 
 
@@ -99,10 +99,15 @@ function taskComplete(){
 
   // moves task list item to "you did it!" section
 function moveTask() {
+    
    let completedTask = $(this).parent();
-   $('#completed').append( completedTask ,);
+   $('#completed').append(completedTask);
+   
     }
 
     function removeTask(){
         $(this).parent().remove();
+        taskHistory();
     }
+
+ 
