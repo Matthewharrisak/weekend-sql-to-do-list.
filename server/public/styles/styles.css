@@ -1,13 +1,7 @@
 body {
     background-color: aquamarine;
-};
-
-.blackOut {
-    background-color: black;
-    color: black;
-    word-wrap: initial;
-    height: black;
 }
+
 
 .allDone {
     background-color: pink;

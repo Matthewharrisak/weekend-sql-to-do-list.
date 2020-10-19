@@ -13,8 +13,6 @@ function onReady() {
 }
 
 
-
-
 // post request that receives input values from DOM and sends to server
 function newTaskSubmission () {
     let taskID = {
@@ -102,9 +100,9 @@ function moveTask() {
     
    let completedTask = $(this).parent();
    $('#completed').append(completedTask);
-   
     }
 
+    // targets the "done Yet?" button and moves it from the <UL>
     function removeTask(){
         $(this).parent().remove();
         taskHistory();

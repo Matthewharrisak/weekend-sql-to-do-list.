@@ -22,8 +22,6 @@ router.post('/' , (req, res) => { // sending the stuff
 });
 
 
-
-
 // get request to get data from our database
 router.get('/' , (req, res) => {
     console.log('in get request!!' , req.body);
