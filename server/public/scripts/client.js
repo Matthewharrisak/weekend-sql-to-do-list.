@@ -6,8 +6,8 @@ function onReady() {
     console.log('hello from JQ');
     $('#submitNewTask').on('click' , newTaskSubmission)
     $('#taskRowBody').on('click' , '.delete' , taskDelete)
-    $('#taskRowBody').on('click' , '.finished' , taskComplete, moveTask)
-    // $('#taskRowBody').on('click' , '.finished' , moveTask)
+    $('#taskRowBody').on('click' , '.finished' , taskComplete , removeTask)
+    $('#taskRowBody').on('click', '.finished' , moveTask )
     taskHistory();
 }
 
@@ -26,7 +26,7 @@ function newTaskSubmission () {
          data: taskID
          }).then(function(response){
             $('#taskInput').val(''),
-            $('#taskRowBody').empty(); // empty out the table before new tasks are displayed on the DOM
+            $('#taskRowBody').empty(''); // empty out the table before new tasks are displayed on the DOM
              taskHistory(); // taskHistory is whats loading the database entries onto the DOM
          });
     }
@@ -90,16 +90,19 @@ function taskComplete(){
       }).then(function(response){
         console.log(response);
         taskHistory();
+
       }).catch(function(error){
           console.log(error);
           
       });
   }
 
+  // moves task list item to "you did it!" section
 function moveTask() {
-    $(this).parent().appendTo('#completed')
-}
-    // console.log('hello from move task!');
-    // $('#completed').empty();
-    // $(this).parent().appendTo('#completed');
+   let completedTask = $(this).parent();
+   $('#completed').append( completedTask ,);
+    }
 
+    function removeTask(){
+        $(this).parent().remove();
+    }
