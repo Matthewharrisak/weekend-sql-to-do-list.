@@ -97,10 +97,11 @@ function onReady() {
 
 //     // moves task list item to "you did it!" section
     function moveTask() {
+     completedTask = $(this).parent();
+   $('#completed').append(completedTask)
+  }
+   
     
-   let completedTask = $(this).parent();
-   $('#completed').append(completedTask);
-    }
 
 //     // targets the "done Yet?" button and moves it from the <UL>
     function removeTask(){
