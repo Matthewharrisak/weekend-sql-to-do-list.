@@ -75,4 +75,4 @@ module.exports = pool;
 //     console.log('error with postgres' , error); // alerts us to postgresql errors 
 // });
 
-module.exports = pool; // exporting pool! 
+// module.exports = pool; // exporting pool! 
