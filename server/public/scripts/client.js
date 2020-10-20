@@ -25,7 +25,8 @@ function onReady() {
             $('#taskInput').val(''),
             $('#taskRowBody').empty(); // empty out the table before new tasks are displayed on the DOM
              taskHistory(); // taskHistory is whats loading the database entries onto the DOM
-         });
+            
+            });
     }
 
 // get request to get data from database
@@ -46,33 +47,23 @@ function onReady() {
     function tasksOnTheDom(response){
             $('#taskRowBody').empty();
             $('#completed').empty();
-    // for (let index = 0; index < response.length; index++) {
-    //     // $('#taskRowBody').append(`<ul>
-    //     // <li data-id=${response[index].id}>
-    //     //     ${response[index].task}
-            // <button id="delete" class="delete">delete</button>
-    //     //     <button class="finished">Done Yet?</button>
-    //     //     </li>
-    //     //     </ul>
-    //     //     `);
-    // };
-    for (let index = 0; index < response.length; index++){
-        if (response[index].taskFinished === true){
-            $('#completed').append(`<ul>
-            <li data-id=${response[index].id}>
+        for (let index = 0; index < response.length; index++){
+            if (response[index].taskFinished === true){ // task is finished it'll append to the completed section
+                $('#completed').append(`<ul>
+                <li data-id=${response[index].id}>
                 ${response[index].task})
                 <button id="delete" class="delete">delete</button>
 
                 </li>
                 </ul>`);
         } else if (response[index].taskFinished === false){ $('#taskRowBody').append(`<ul>
-        <li data-id=${response[index].id}>
-            ${response[index].task}
-            <button id="delete" class="delete">delete</button>
-            <button class="finished">Done Yet?</button>
-            </li>
-            </ul>
-            `);
+                <li data-id=${response[index].id}>
+                ${response[index].task}
+                <button id="delete" class="delete">delete</button>
+                <button class="finished">Done Yet?</button>
+                </li>
+                </ul>
+                `);
 
         }
     }
@@ -114,19 +105,3 @@ function onReady() {
           
       });
     }
-
-//     // moves task list item to "you did it!" section
-//     function moveTask() {
-//      completedTask = $(this).parent();
-//    $('#completed').append(completedTask)
-//   }
-   
-    
-
-//     // targets the "done Yet?" button and moves it from the <UL>
-    // function removeTask(){
-    //     $(this).parent().remove();
-       
-    // }
-
- 
