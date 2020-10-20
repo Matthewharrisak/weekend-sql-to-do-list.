@@ -7,9 +7,7 @@ function onReady() {
     $('#submitNewTask').on('click' , newTaskSubmission)
     $('#taskRowBody').on('click' , '.delete' , taskDelete)
     $('#completed').on('click' , '.delete' , taskDelete)
-    $('#taskRowbody').on('click' ,'.finished' , removeTask)
     $('#taskRowBody').on('click' , '.finished' , taskComplete)
-    $('#taskRowBody').on('click', '.finished' , moveTask )
     taskHistory();
 }
 
@@ -45,18 +43,40 @@ function onReady() {
 }
 
 // appends server data to the DOM
-    function tasksOnTheDom(response) {
-    for (let index = 0; index < response.length; index++) {
-        $('#taskRowBody').append(`
-        <ul>
+    function tasksOnTheDom(response){
+            $('#taskRowBody').empty();
+            $('#completed').empty();
+    // for (let index = 0; index < response.length; index++) {
+    //     // $('#taskRowBody').append(`<ul>
+    //     // <li data-id=${response[index].id}>
+    //     //     ${response[index].task}
+            // <button id="delete" class="delete">delete</button>
+    //     //     <button class="finished">Done Yet?</button>
+    //     //     </li>
+    //     //     </ul>
+    //     //     `);
+    // };
+    for (let index = 0; index < response.length; index++){
+        if (response[index].taskFinished === true){
+            $('#completed').append(`<ul>
+            <li data-id=${response[index].id}>
+                ${response[index].task})
+                <button id="delete" class="delete">delete</button>
+
+                </li>
+                </ul>`);
+        } else if (response[index].taskFinished === false){ $('#taskRowBody').append(`<ul>
         <li data-id=${response[index].id}>
             ${response[index].task}
             <button id="delete" class="delete">delete</button>
             <button class="finished">Done Yet?</button>
             </li>
             </ul>
-          `);
-  }}
+            `);
+
+        }
+    }
+}
 
 
 // PUT request to update database with 
@@ -96,17 +116,17 @@ function onReady() {
     }
 
 //     // moves task list item to "you did it!" section
-    function moveTask() {
-     completedTask = $(this).parent();
-   $('#completed').append(completedTask)
-  }
+//     function moveTask() {
+//      completedTask = $(this).parent();
+//    $('#completed').append(completedTask)
+//   }
    
     
 
 //     // targets the "done Yet?" button and moves it from the <UL>
-    function removeTask(){
-        $(this).parent().remove();
+    // function removeTask(){
+    //     $(this).parent().remove();
        
-    }
+    // }
 
  
