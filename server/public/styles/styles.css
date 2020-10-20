@@ -11,6 +11,7 @@ h1 {
 }
 .allDone {
     background-color: pink;
+    text-decoration: line-through;
 }
 
 .container {
@@ -18,8 +19,6 @@ h1 {
     padding-top: 10;
 }
 
-h2 {
-}
 
 button {
 

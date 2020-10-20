@@ -5,7 +5,7 @@ CREATE TABLE "tasks" (
 );
 
 
-// examples for sample data
+-- // examples for sample data
 INSERT INTO "tasks" ( "task" )
 VALUES ('sleep');
 
