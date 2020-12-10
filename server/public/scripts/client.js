@@ -51,7 +51,7 @@ function onReady() {
             if (response[index].taskFinished === true){ // task is finished it'll append to the completed section
                 $('#completed').append(`<ul>
                 <li data-id=${response[index].id}>
-                ${response[index].task})
+                ${response[index].task}
                 <button id="delete" class="delete">delete</button>
 
                 </li>
