@@ -3,6 +3,9 @@ Weekend SQL-to-do-app
 
 ## Description
 
+Deployed Version available 
+https://mattsfullstacktodoapp.herokuapp.com/
+
 This to-do app allows a user to put in tasks that they need to complete  or delete them off their list! Upon hitting the "new task!" button, a task a fired off and stored in the database. You are able to delete it from the DOM but it'll be safe in the database. Upon completion, the task moves to the "you did it" section and will be crossed out! Good job, you did it! 
 
 Thank you to the instructors at Prime Digital Academy for helping us develope this project with their knowledge and resourses. Couldn't have done it with out them!
